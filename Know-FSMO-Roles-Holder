@@ -1,0 +1,9 @@
+To find out which server or servers hold which FSMO role, run the following commands in an elevated PowerShell session by using an account that's a member of the Domain Admins group
+
+Get-ADDomain | FL InfrastructureMaster, RIDMaster, PDCEmulator
+Get-ADForest | FL DomainNamingMaster, SchemaMaster
+
+
+## In the PowerShell window, use the Move-ADDirectoryServerOperationMasterRole cmdlet to move the FSMO roles. You can enter the name of each Operation Master Role or use numbers to specify the roles. For more information, see Move-ADDirectoryServerOperationMasterRole.
+
+Move-ADDirectoryServerOperationMasterRole -Identity "DC-W2K16" -OperationMasterRole 0,1,2,3,4
