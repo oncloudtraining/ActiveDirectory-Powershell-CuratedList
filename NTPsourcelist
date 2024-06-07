@@ -1,0 +1,9 @@
+
+$data = ForEach ($time in (Get-ADForest).Domains | %{ Get-ADDomainController -Filter * -Server $_ })
+
+{
+Invoke-Command -ComputerName $time -ScriptBlock {"The Time of hostname ` $(hostname) is ` ` $(get-date -format R) ` and the source Server is ` ` $(w32tm /query /source)"}
+
+}
+
+$data | Out-File -FilePath c:\Process1.csv -NoClobber
